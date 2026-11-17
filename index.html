@@ -5,8 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>南京主城主题分布</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: "Microsoft YaHei", Arial, sans-serif;
@@ -14,42 +18,169 @@
       background: #f5f7f8;
       line-height: 1.9;
     }
+
+    /* ==============================
+       顶部双背景轮播区域
+       第一张：鸡鸣寺
+       第二张：南京城市主题网络
+       ============================== */
+
     header {
-      background: #173f50;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background-color: #173f50;
       color: white;
       padding: 75px 24px;
       text-align: center;
     }
-    header h1 { font-size: 32px; margin: 0; }
-    header p { color: #c7dbe3; }
+
+    /* 保证标题和文字始终显示在背景图片上方 */
+    header > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 第一张背景：鸡鸣寺航拍图 */
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(10, 31, 48, 0.38),
+          rgba(10, 31, 48, 0.38)
+        ),
+        url("./jiming-temple.png");
+
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+      animation: templeFade 14s infinite ease-in-out;
+    }
+
+    /* 第二张背景：南京城市主题网络图 */
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(4, 22, 48, 0.25),
+          rgba(4, 22, 48, 0.25)
+        ),
+        url("./nanjing-network.png");
+
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+      animation: networkFade 14s infinite ease-in-out;
+    }
+
+    /* 鸡鸣寺：首先显示，随后淡出 */
+    @keyframes templeFade {
+      0%, 42% {
+        opacity: 1;
+      }
+
+      50%, 92% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* 城市主题网络：随后淡入 */
+    @keyframes networkFade {
+      0%, 42% {
+        opacity: 0;
+      }
+
+      50%, 92% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* 尊重系统减少动态效果的设置 */
+    @media (prefers-reduced-motion: reduce) {
+      header::before,
+      header::after {
+        animation: none;
+      }
+
+      header::before {
+        opacity: 1;
+      }
+
+      header::after {
+        opacity: 0;
+      }
+    }
+
+    /* ==============================
+       原有网页样式：保持不变
+       ============================== */
+
+    header h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    header p {
+      color: #c7dbe3;
+    }
+
     main {
       max-width: 880px;
       margin: 36px auto;
       padding: 0 18px;
     }
+
     section {
       background: white;
       padding: 28px;
       margin-bottom: 20px;
       border-radius: 8px;
     }
+
     h2 {
       color: #174b62;
       font-size: 21px;
       border-bottom: 1px solid #e2e9ec;
       padding-bottom: 10px;
     }
+
     footer {
       text-align: center;
       color: #697b85;
       padding: 30px;
       font-size: 13px;
     }
+
   </style>
-  
-<script src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+  <script
+    src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js"
+    type="text/javascript"
+    charset="utf-8">
+  </script>
+
 </head>
+
 <body>
+
   <header>
     <h1>南京主城主题分布</h1>
     <p>基于社交媒体公共话语的城市主题与空间分布研究</p>
@@ -57,6 +188,7 @@
   </header>
 
   <main>
+
     <section>
       <h2>项目简介</h2>
       <p>
@@ -100,11 +232,18 @@
         相关服务协议及个人信息保护要求。
       </p>
     </section>
-    <wb:share-button addition="simple" type="button" default_text="南京主城主题分布——基于社交媒体公共话语的城市主题识别与空间分布研究。欢迎了解本学术研究项目。"></wb:share-button>
+
+    <wb:share-button
+      addition="simple"
+      type="button"
+      default_text="南京主城主题分布——基于社交媒体公共话语的城市主题识别与空间分布研究。欢迎了解本学术研究项目。">
+    </wb:share-button>
+
   </main>
 
   <footer>
     南京主城主题分布 · 学术研究项目
   </footer>
+
 </body>
 </html>
